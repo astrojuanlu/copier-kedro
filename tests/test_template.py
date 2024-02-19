@@ -16,7 +16,6 @@ def test_template(copie):
     result = copie.copy(
         extra_answers={
             "project_name": "project-name",
-            "short_description": "Short description",
             "author_name": "John Doe",
             "author_email": "john@doe.me",
         },
