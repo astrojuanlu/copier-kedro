@@ -1,26 +1,67 @@
 # {{ project_name }}
 
-[![Documentation Status](https://readthedocs.org/projects/{{ project_name }}/badge/?version=latest)](https://{{ project_name }}.readthedocs.io/en/latest/?badge=latest)
-[![Code style: ruff-format](https://img.shields.io/badge/code%20style-ruff_format-6340ac.svg)](https://github.com/astral-sh/ruff)
-[![PyPI](https://img.shields.io/pypi/v/{{ project_name }})](https://pypi.org/project/{{ project_name }})
-
-## Installation
-
-To install, run
-
-```
-(.venv) $ pip install {{ project_name }}
-```
-
-## Development
-
-To run style checks:
-
-```
-(.venv) $ pip install pre-commit
-(.venv) $ pre-commit run -a
-```
-
 ## Overview
 
-Add a longer description here.
+This is your new Kedro project, which was generated using `kedro {{ kedro_version }}`.
+
+Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
+
+## Rules and guidelines
+
+In order to get the best out of the template:
+
+* Don't remove any lines from the `.gitignore` file we provide
+* Make sure your results can be reproduced by following a data engineering convention
+* Don't commit data to your repository
+* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+
+## How to install dependencies
+
+Declare any dependencies in `requirements.txt` for `pip` installation.
+
+To install them, run:
+
+```
+pip install -r requirements.txt
+```
+
+## How to run your Kedro pipeline
+
+You can run your Kedro project with:
+
+```
+kedro run
+```
+
+## How to test your Kedro project
+
+You can run your tests as follows:
+
+```
+pytest
+```
+
+You can configure the coverage threshold in your project's `pyproject.toml` file under the `[tool.coverage.report]` section.
+
+## Project dependencies
+
+To see and update the dependency requirements for your project use `requirements.txt`.
+
+[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+
+## How to work with Kedro and notebooks
+
+> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, 'session', `catalog`, and `pipelines`.
+>
+> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
+
+### Jupyter
+
+To use Kedro from Jupyter or any IPython-enabled notebook, run this magic function:
+
+```
+%load_ext kedro.ipython
+```
+## Package your Kedro project
+
+[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)

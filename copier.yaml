@@ -1,12 +1,19 @@
 project_name:
-  help: The name of the project (as in `pip install {project_name}`
+  help: |
+    Please enter a name for your new project.
+    Spaces, hyphens, and underscores are allowed.
+project_tools:
+  help: IGNORED, TBC
+example_pipeline:
+  help: IGNORED, TBC
 package_name:
   help: The name of the package (as in `import {package_name}`)
-  default: "{{ project_name.lower().replace('-', '_') }}"
-author_name:
-  help: Your name
-author_email:
-  help: Your email
+  default: "{{ project_name.strip().replace(' ', '_').replace('-', '_').lower() }}"
+  when: false
+repo_name:
+  help: The name of the project (as in `pip install {repo_name}`)
+  default: "{{ project_name.strip().replace(' ', '-').replace('_', '-').lower() }}"
+  when: false
 
 _subdirectory: template
 _templates_suffix: .j2
