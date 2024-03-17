@@ -59,7 +59,11 @@ _answers_file: .copier-answers.yml.j2
 _exclude:
   - hooks
 _tasks:
-  - ["{{ _copier_python }}", "{{ _copier_conf.src_path }}/hooks/post_gen_project.py", "--full-conf={{ _copier_conf|to_json }}"]
+  - ["{{ _copier_python }}", "{{ _copier_conf.src_path }}/hooks/post_gen_project.py", "--path={{ _copier_conf.dst_path | realpath }}", "--full-conf={{ _copier_conf|to_json }}"]
+  - >-
+    {% if example_pipeline %}
+    kedro pipeline create example
+    {% endif %}
 _message_after_copy: |
   🚀 Your new Kedro project is ready! 🚀
 

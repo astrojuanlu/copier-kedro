@@ -125,7 +125,9 @@ def _remove_file(path: Path) -> None:
         path.unlink()
 
 
-def _remove_pyspark_viz_starter_files(is_viz: bool, python_package_name: str, current_dir: Path) -> None:
+def _remove_pyspark_viz_starter_files(
+    is_viz: bool, python_package_name: str, current_dir: Path
+) -> None:
     """Clean up the unnecessary files in the starters template.
 
     Args:
@@ -184,32 +186,30 @@ def _remove_extras_from_kedro_datasets(file_path: Path) -> None:
         file.writelines(lines)
 
 
-def _convert_tool_numbers_to_readable_names(tools_numbers: list) -> str:
-    """Transform the list of tool numbers into a list of readable names, using 'None' for empty lists.
-    Then, convert the result into a string format to prevent issues with Cookiecutter.
-    """
+def _convert_tool_numbers_to_readable_names(tools_numbers: list) -> list[str]:
+    """Transform the list of tool numbers into a list of readable names, using 'None' for empty lists."""
     tools_names = [NUMBER_TO_TOOLS_NAME[tool] for tool in tools_numbers]
     if tools_names == []:
         tools_names = ["None"]
-    return str(tools_names)
+    return tools_names
 
 
 def setup_template_tools(
-    selected_tools_list: str,
+    selected_tools_list: list[str],
     requirements_file_path: Path,
     pyproject_file_path: Path,
     python_package_name: str,
-    example_pipeline: str,
+    example_pipeline: bool,
     current_dir: Path,
 ) -> None:
     """Set up the templates according to the choice of tools.
 
     Args:
-        selected_tools_list (str): A string contains the selected tools.
+        selected_tools_list (list[str]): A list that contains the selected tools.
         requirements_file_path (Path): The path of the `requirements.txt` in the template.
         pyproject_file_path (Path): The path of the `pyproject.toml` in the template
         python_package_name (str): The name of the python package.
-        example_pipeline (str): 'True' if example pipeline was selected
+        example_pipeline (bool): True if example pipeline was selected
     """
     if "Linting" not in selected_tools_list:
         _remove_from_file(requirements_file_path, lint_requirements)
@@ -227,14 +227,16 @@ def setup_template_tools(
         _remove_from_toml(pyproject_file_path, docs_pyproject_requirements)
         _remove_dir(current_dir / "docs")
 
-    if "Data Structure" not in selected_tools_list and example_pipeline != "True":
+    if "Data Structure" not in selected_tools_list and not example_pipeline:
         _remove_dir(current_dir / "data")
 
     if (
         "PySpark" in selected_tools_list or "Kedro Viz" in selected_tools_list
-    ) and example_pipeline != "True":
+    ) and not example_pipeline:
         _remove_pyspark_viz_starter_files(
-            "Kedro Viz" in selected_tools_list, python_package_name, current_dir,
+            "Kedro Viz" in selected_tools_list,
+            python_package_name,
+            current_dir,
         )
         # Remove requirements used by example pipelines
         _remove_from_file(requirements_file_path, example_pipeline_requirements)
@@ -253,14 +255,15 @@ def sort_requirements(requirements_file_path: Path) -> None:
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--path", type=Path)
     parser.add_argument("--full-conf", type=json.loads)
     args = parser.parse_args()
 
+    path = args.path
     full_conf = args.full_conf
 
-    dest_dir = Path.cwd() / full_conf["dst_path"]
-    requirements_file_path = dest_dir / "requirements.txt"
-    pyproject_file_path = dest_dir / "pyproject.toml"
+    requirements_file_path = path / "requirements.txt"
+    pyproject_file_path = path / "pyproject.toml"
     python_package_name = full_conf["answers"]["user"]["package_name"]
 
     selected_tools = full_conf["answers"]["user"]["project_tools"]
@@ -268,12 +271,12 @@ def main():
 
     # Handle template directories and requirements according to selected tools
     setup_template_tools(
-        selected_tools,
+        _convert_tool_numbers_to_readable_names(selected_tools.split(",")),
         requirements_file_path,
         pyproject_file_path,
         python_package_name,
         example_pipeline,
-        dest_dir,
+        path,
     )
 
     # Sort requirements.txt file in alphabetical order
