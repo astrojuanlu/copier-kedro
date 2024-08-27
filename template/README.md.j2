@@ -1,28 +1,43 @@
 # {{ project_name }}
 
-[![Documentation Status](https://readthedocs.org/projects/{{ project_name }}/badge/?version=latest)](https://{{ project_name }}.readthedocs.io/en/latest/?badge=latest)
+![Powered by Kedro](https://img.shields.io/badge/powered_by-kedro-ffc900?logo=kedro)
 [![Code style: ruff-format](https://img.shields.io/badge/code%20style-ruff_format-6340ac.svg)](https://github.com/astral-sh/ruff)
-[![PyPI](https://img.shields.io/pypi/v/{{ project_name }})](https://pypi.org/project/{{ project_name }})
 
-{{ short_description}}
+(Add a longer description here.)
 
-## Installation
+## How to create your first Kedro pipeline
 
-To install, run
-
-```
-$ uv pip install {{ project_name }}
-```
-
-## Development
-
-To run style checks:
+To list the available Kedro pipelines:
 
 ```
-$ uv tool install pre-commit
-$ pre-commit run -a
+uv run kedro registry list
 ```
 
-## Overview
+And to create a new one:
 
-Add a longer description here.
+```
+uv run kedro pipeline create data_processing
+```
+
+See the [documentation on modular pipelines](https://docs.kedro.org/en/stable/nodes_and_pipelines/modular_pipelines.html)
+for more information.
+
+## How to run your Kedro pipeline
+
+You can run your Kedro project with:
+
+```
+uv run kedro run
+```
+
+## How to test your Kedro project
+
+Have a look at the file `tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+
+```
+uv run pytest
+```
+
+## Project dependencies
+
+To see and update the dependency requirements for your project, use `uv`.
