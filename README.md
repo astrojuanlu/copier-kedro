@@ -1,8 +1,19 @@
-# copier-pylib
+# copier-kedro
 
-[Copier](https://github.com/copier-org/copier) template for pure Python libraries.
+[Copier](https://github.com/copier-org/copier) template Kedro projects.
 
 _As simple as possible. No magic._
+
+## Usage
+
+```
+mkdir my-kedro-project && cd my-kedro-project
+uvx copier copy --trust gh:astrojuanlu/copier-kedro .
+```
+
+✨
+
+(`uvx` is the shorthand for `uv tool run`, see [the uv documentation](https://docs.astral.sh/uv/guides/tools/))
 
 ## Features
 
@@ -16,20 +27,6 @@ _As simple as possible. No magic._
 - [ruff] for style checks and automatic Python code formatting.
 - [pre-commit] for optional automation of style checks.
 - [PDM] as build backend.
-
-## Usage
-
-Install `copier`:
-
-```
-uv tool install copier
-```
-
-Generate a Python package:
-
-```
-copier copy gh:astrojuanlu/copier-pylib path/to/destination
-```
 
 ## License
 
