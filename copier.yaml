@@ -1,4 +1,3 @@
-# Not worth creating validators, wait for https://github.com/copier-org/copier/pull/958
 github_org:
   help: Your account or organization
 project_name:
