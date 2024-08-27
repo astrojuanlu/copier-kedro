@@ -8,7 +8,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 description = "{{ short_description }}"
 dependencies = [
-    # "structlog",
+    "kedro>=0.19.8",
 ]
 dynamic = ["version"]
 
@@ -25,6 +25,11 @@ doc = [
     "sphinx>=5",
     "sphinx-copybutton",
 ]
+
+[tool.kedro]
+project_name = "{{ project_name }}"
+package_name = "{{ package_name }}"
+kedro_init_version = "0.19.8"
 
 [tool.pdm.version]
 source = "scm"

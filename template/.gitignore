@@ -154,3 +154,12 @@ dmypy.json
 cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks
+
+# Kedro files
+conf/local/**
+!conf/local/.gitkeep
+.telemetry
+
+conf/**/*credentials*
+
+.viz/
