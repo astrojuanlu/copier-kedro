@@ -4,6 +4,10 @@ package_name:
   help: The name of the package (as in `>>> import {package_name}`)
   default: "{{ project_name.lower().replace('-', '_') }}"
   when: false
+include_local_data:
+  help: Include local data directories?
+  type: bool
+  default: false
 
 _tasks:
   - "git init"
