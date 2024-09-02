@@ -1,7 +1,6 @@
 def test_template(copie):
     expected_files = [
         ".gitignore",
-        "LICENSE",
         "README.md",
         "pyproject.toml",
         "tox.ini",
@@ -16,11 +15,7 @@ def test_template(copie):
 
     result = copie.copy(
         extra_answers={
-            "github_org": "johndoe",
             "project_name": "project-name",
-            "short_description": "Short description",
-            "author_name": "John Doe",
-            "author_email": "john@doe.me",
         },
     )
 
@@ -32,3 +27,18 @@ def test_template(copie):
         assert (result.project_dir / path).is_file()
     for path in expected_dirs:
         assert (result.project_dir / path).is_dir()
+
+
+def test_local_data_dirs(copie):
+    result = copie.copy(
+        extra_answers={
+            "project_name": "project-name",
+            "include_local_data": True,
+        },
+    )
+
+    assert result.exit_code == 0, result.exception
+    assert result.exception is None
+    assert result.project_dir.is_dir()
+
+    assert (result.project_dir / "data").is_dir()
