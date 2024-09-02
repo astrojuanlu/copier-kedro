@@ -1,7 +1,6 @@
 def test_template(copie):
     expected_files = [
         ".gitignore",
-        "LICENSE",
         "README.md",
         "pyproject.toml",
         "tox.ini",
@@ -16,11 +15,7 @@ def test_template(copie):
 
     result = copie.copy(
         extra_answers={
-            "github_org": "johndoe",
             "project_name": "project-name",
-            "short_description": "Short description",
-            "author_name": "John Doe",
-            "author_email": "john@doe.me",
         },
     )
 
